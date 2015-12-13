@@ -306,6 +306,9 @@ class TwitterAPIExchange
         }
 
         curl_close($feed);
+        
+        $this->getfield = null;
+        $this->postfield = null;
 
         return $json;
     }

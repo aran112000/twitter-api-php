@@ -14,6 +14,12 @@
  */
 class TwitterAPIExchange
 {
+    
+    /**
+     * @var bool
+     */
+    const CLEAR_REQUEST_FIELDS_AFTER_EACH_REQUEST = false;
+    
     /**
      * @var string
      */
@@ -316,8 +322,21 @@ class TwitterAPIExchange
         }
 
         curl_close($feed);
+        
+        // Clear the current GET/POST fields in preperation for future requests
+        $this->clearRequestFields();
 
         return $json;
+    }
+    
+    /**
+     * Clears the current GET/POST fields in preperation for future requests
+     */
+    public function clearRequestFields() {
+        if (self::CLEAR_REQUEST_FIELDS_AFTER_EACH_REQUEST) {
+            $this->getfield = null;
+            $this->postfields = null;
+        }
     }
 
     /**
